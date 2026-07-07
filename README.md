@@ -81,6 +81,8 @@ The completed accelerator gave ADIO a working demonstration of how Power BI and 
 ## Screenshots
 
 /screenshots/dashboard-overview.png
+/screenshots/department(program view).png
+/screenshots/project list.png
 /screenshots/task-monitoring-detail.png
 
 ## Tools & Technologies
