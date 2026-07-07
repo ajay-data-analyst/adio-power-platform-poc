@@ -71,28 +71,19 @@ CALCULATE(
 
 The completed accelerator gave ADIO a working demonstration of how Power BI and Power Automate can unify project visibility across departments — moving from scattered manual updates toward a single, structured, branded reporting system, and showing that a lean Power Platform build can meet the standards expected by a government-level stakeholder group.
 
-## Screenshots
+## Client Feedback
 
-*(Add your redacted/sample screenshots here — see repo structure below)*
+> "Excellent work, thank you"
+> — 5-star rating, ADIO client, via Truelancer
+
+![Client review](screenshots/truelancer-review.png)
+
+## Screenshots
 
 `/screenshots/dashboard-overview.png`
 `/screenshots/task-monitoring-detail.png`
-
-## Repo Structure
-
-```
-adio-power-platform-poc/
-├── README.md                  ← this file
-├── screenshots/
-│   ├── dashboard-overview.png
-│   └── task-monitoring-detail.png
-├── dax-measures/
-│   └── sample-measures.dax    ← representative DAX logic (sanitized)
-├── data-model/
-│   └── star-schema-diagram.png
-└── docs/
-    └── case-study.pdf          ← optional: same case study PDF used on LinkedIn
-```
+`/screenshots/department(program view).png`
+`/screenshots/project list.png`
 
 ## Tools & Technologies
 
