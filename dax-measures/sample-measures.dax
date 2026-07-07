@@ -1,0 +1,111 @@
+// ============================================================
+// ADIO Power Platform Accelerator — Sample DAX Measures
+// Representative, sanitized logic. Field/table names simplified
+// for illustration; actual client field names are not reproduced.
+// ============================================================
+
+// ---------- Core Counts ----------
+
+Total Projects =
+DISTINCTCOUNT(Projects[ProjectID])
+
+Total Tasks =
+COUNTROWS(Tasks)
+
+Total Departments =
+DISTINCTCOUNT(Departments[DepartmentName])
+
+
+// ---------- Workload & Distribution ----------
+
+Tasks by Department =
+CALCULATE(
+    COUNTROWS(Tasks),
+    ALLEXCEPT(Tasks, Tasks[Department])
+)
+
+Workload by Project =
+CALCULATE(
+    COUNTROWS(Tasks),
+    ALLEXCEPT(Tasks, Tasks[ProjectName])
+)
+
+% of Total Tasks =
+DIVIDE(
+    COUNTROWS(Tasks),
+    CALCULATE(COUNTROWS(Tasks), ALL(Tasks)),
+    0
+)
+
+
+// ---------- Task Status Tracking ----------
+
+Open Tasks =
+CALCULATE(
+    COUNTROWS(Tasks),
+    Tasks[Status] = "Open"
+)
+
+Completed Tasks =
+CALCULATE(
+    COUNTROWS(Tasks),
+    Tasks[Status] = "Completed"
+)
+
+Completion Rate =
+DIVIDE(
+    [Completed Tasks],
+    [Total Tasks],
+    0
+)
+
+Overdue Tasks =
+CALCULATE(
+    COUNTROWS(Tasks),
+    Tasks[Status] <> "Completed",
+    Tasks[DueDate] < TODAY()
+)
+
+
+// ---------- Time Intelligence ----------
+
+Tasks Created MTD =
+CALCULATE(
+    COUNTROWS(Tasks),
+    DATESMTD('Date'[Date])
+)
+
+Tasks Created Last Month =
+CALCULATE(
+    COUNTROWS(Tasks),
+    DATEADD('Date'[Date], -1, MONTH)
+)
+
+MoM Task Growth % =
+DIVIDE(
+    [Tasks Created MTD] - [Tasks Created Last Month],
+    [Tasks Created Last Month],
+    0
+)
+
+
+// ---------- Escalation / Automation Support ----------
+// Supports the Power Automate escalation flow by flagging
+// high-priority tasks nearing or past their due date.
+
+Escalation Flag =
+IF(
+    AND(
+        Tasks[Priority] = "High",
+        Tasks[DueDate] <= TODAY() + 2
+    ),
+    "Escalate",
+    "Normal"
+)
+
+High Priority Open Tasks =
+CALCULATE(
+    COUNTROWS(Tasks),
+    Tasks[Priority] = "High",
+    Tasks[Status] <> "Completed"
+)
